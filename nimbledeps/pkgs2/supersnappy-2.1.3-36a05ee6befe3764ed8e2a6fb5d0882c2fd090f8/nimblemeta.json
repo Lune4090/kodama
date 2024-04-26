@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/guzba/supersnappy",
+    "downloadMethod": "git",
+    "vcsRevision": "e4df8cb5468dd96fc5a4764028e20c8a3942f16a",
+    "files": [
+      "/supersnappy.nimble",
+      "/supersnappy/internal.nim",
+      "/supersnappy.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "2.1.3"
+    ]
+  }
+}

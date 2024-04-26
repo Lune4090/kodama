@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "reverseDeps": {
+    "opencl": {
+      "1.0": {
+        "476d7ea9b45e4f8b615a5726ce93badbd5f0cc50": [
+          {
+            "name": "nimcl",
+            "version": "0.1.3",
+            "checksum": "fb304e3b75503fb359ffe649d019a2fac7e2b3dc"
+          },
+          {
+            "name": "clblast",
+            "version": "0.0.2",
+            "checksum": "0b4514b483f83492c49bb0629e5b45ffdf8e7aa3"
+          }
+        ]
+      }
+    },
+    "nimblas": {
+      "0.3.0": {
+        "d5033749759fc7a2a316acf623635dcb6d69d32a": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "nimlapack": {
+      "0.3.0": {
+        "120adaf15ac47854c560de04c0382296d1b3429e": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "nimcuda": {
+      "0.1.9": {
+        "9d6c8461e8f6f1acdacc55fe2353c27650be6a10": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "nimcl": {
+      "0.1.3": {
+        "fb304e3b75503fb359ffe649d019a2fac7e2b3dc": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "clblast": {
+      "0.0.2": {
+        "0b4514b483f83492c49bb0629e5b45ffdf8e7aa3": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "stb_image": {
+      "2.5": {
+        "abf5fd03e72ee4c316c50a0538b973e355dcb175": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "zip": {
+      "0.3.1": {
+        "747aab3c43ecb7b50671cdd0ec3b2edc2c83494c": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "untar": {
+      "0.1.0": {
+        "ceb12634783156ddd511410242dc7855ae2f4a14": [
+          {
+            "name": "arraymancer",
+            "version": "0.7.29",
+            "checksum": "655301efe430cbf445e036cf7c502dfac8c835cc"
+          }
+        ]
+      }
+    },
+    "vmath": {
+      "2.0.0": {
+        "c90a664f3425d26219e1262ed9a888b859b3127c": [
+          {
+            "name": "bumpy",
+            "version": "1.1.2",
+            "checksum": "acc789c4e31b3ee969a13dd0c238d808f39b19c7"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          }
+        ]
+      }
+    },
+    "nimsimd": {
+      "1.2.9": {
+        "b5441b15234ae14c9e65a40f7b27837b9786a3d7": [
+          {
+            "name": "crunchy",
+            "version": "0.1.11",
+            "checksum": "d34f03fc0f6876dbf53f99601096728ec31f47a3"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          }
+        ]
+      }
+    },
+    "chroma": {
+      "0.2.7": {
+        "f873f4b97e87a82e27e0b85bf9130fe3e320a2b8": [
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "zippy": {
+      "0.10.12": {
+        "88baafc3678bcd566f37efcb92b8e9357d75b294": [
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "wasmrt",
+            "version": "0.1.0",
+            "checksum": "7bd4bd26a0673e8a2cdd7e31ba75a3aa0babba8e"
+          }
+        ]
+      }
+    },
+    "flatty": {
+      "0.3.4": {
+        "5775e6ea6ca339efc5bd37b082b8294342d49dc5": [
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          }
+        ]
+      }
+    },
+    "bumpy": {
+      "1.1.2": {
+        "acc789c4e31b3ee969a13dd0c238d808f39b19c7": [
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          }
+        ]
+      }
+    },
+    "crunchy": {
+      "0.1.11": {
+        "d34f03fc0f6876dbf53f99601096728ec31f47a3": [
+          {
+            "name": "pixie",
+            "version": "5.0.6",
+            "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          }
+        ]
+      }
+    },
+    "pixie": {
+      "5.0.6": {
+        "fd4c5d12bba41aac760fc86c2de820e1a367dbfd": [
+          {
+            "name": "typography",
+            "version": "0.7.14",
+            "checksum": "d6f6e69141b1f62fef42ea2f90eefb894399d4f8"
+          }
+        ]
+      }
+    },
+    "print": {
+      "1.0.2": {
+        "b2d54fa3fa47a11a42c94f9d05f1057fc5ff16a3": [
+          {
+            "name": "typography",
+            "version": "0.7.14",
+            "checksum": "d6f6e69141b1f62fef42ea2f90eefb894399d4f8"
+          },
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "x11": {
+      "1.2": {
+        "6db9aa495a228e9e68faa80acf301f60accd8e5a": [
+          {
+            "name": "opengl",
+            "version": "1.2.9",
+            "checksum": "87ece9f3a9f99d17332b50885e15a4dcb18c51b5"
+          }
+        ]
+      }
+    },
+    "opengl": {
+      "1.2.9": {
+        "87ece9f3a9f99d17332b50885e15a4dcb18c51b5": [
+          {
+            "name": "staticglfw",
+            "version": "4.1.3",
+            "checksum": "60ff67c7990e64e19bb7ce41cf416ece732115b0"
+          },
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "typography": {
+      "0.7.14": {
+        "d6f6e69141b1f62fef42ea2f90eefb894399d4f8": [
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "html5_canvas": {
+      "1.3": {
+        "b0b377fe3f67a2c371c37cc70e5598f45494fbe6": [
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "staticglfw": {
+      "4.1.3": {
+        "60ff67c7990e64e19bb7ce41cf416ece732115b0": [
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "cligen": {
+      "1.7.1": {
+        "ed12623769e29d0ddaceb997a4fa602272d4e7be": [
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "supersnappy": {
+      "2.1.3": {
+        "36a05ee6befe3764ed8e2a6fb5d0882c2fd090f8": [
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "fidget": {
+      "0.7.10": {
+        "a03b0191749ae87c521c10f571776ee9ff826522": [
+          {
+            "path": "/home/lune/kodama"
+          }
+        ]
+      }
+    },
+    "arraymancer": {
+      "0.7.29": {
+        "655301efe430cbf445e036cf7c502dfac8c835cc": [
+          {
+            "path": "/home/lune/kodama"
+          },
+          {
+            "name": "numericalnim",
+            "version": "0.8.9",
+            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
+          }
+        ]
+      }
+    },
+    "cdt": {
+      "0.1.1": {
+        "8e079c6a8d42882b3104ebd3ed8398b4a7ea969c": [
+          {
+            "name": "numericalnim",
+            "version": "0.8.9",
+            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
+          }
+        ]
+      }
+    },
+    "numericalnim": {
+      "0.8.9": {
+        "ee6fc11ba175c37edf6589d3b73e2b736a952403": [
+          {
+            "path": "/home/lune/kodama"
+          }
+        ]
+      }
+    },
+    "unchained": {
+      "0.4.0": {
+        "437e3b568a5186b1f0b4ab2635ae0fc7b1dd1c54": [
+          {
+            "path": "/home/lune/kodama"
+          }
+        ]
+      }
+    },
+    "wasmrt": {
+      "0.1.0": {
+        "7bd4bd26a0673e8a2cdd7e31ba75a3aa0babba8e": [
+          {
+            "name": "jsbind",
+            "version": "0.1.1",
+            "checksum": "4b25dc5465197d5b72d46a75a1d73753d41cc062"
+          }
+        ]
+      }
+    },
+    "jsbind": {
+      "0.1.1": {
+        "4b25dc5465197d5b72d46a75a1d73753d41cc062": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "webview": {
+      "0.1.0": {
+        "2d714d280055de9d0a33e6a730f1099feb1261aa": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "ws": {
+      "0.5.0": {
+        "ae4daf4ae302d0431f3c2d385ae9d2fe767a3246": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "plotly": {
+      "0.3.3": {
+        "a0687b7a917ebea721ceb9466125440074bac044": [
+          {
+            "path": "/home/lune/kodama"
+          }
+        ]
+      }
+    }
+  }
+}

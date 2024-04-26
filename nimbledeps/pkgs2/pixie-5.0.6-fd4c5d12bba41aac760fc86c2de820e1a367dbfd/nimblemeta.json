@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/treeform/pixie",
+    "downloadMethod": "git",
+    "vcsRevision": "f3e73f722fbb0e5d496fbc59ee860a9fd49983de",
+    "files": [
+      "/pixie/fontformats/svgfont.nim",
+      "/pixie/simd/neon.nim",
+      "/pixie/fileformats/qoi.nim",
+      "/pixie/blends.nim",
+      "/pixie/fileformats/tiff.nim",
+      "/pixie/paths.nim",
+      "/pixie/internal.nim",
+      "/pixie/fileformats/gif.nim",
+      "/pixie/simd/avx.nim",
+      "/pixie/fileformats/ppm.nim",
+      "/pixie/paints.nim",
+      "/pixie/simd.nim",
+      "/pixie/common.nim",
+      "/pixie/images.nim",
+      "/pixie.nimble",
+      "/pixie/fileformats/jpeg.nim",
+      "/pixie/contexts.nim",
+      "/pixie/fileformats/png.nim",
+      "/pixie/fileformats/bmp.nim",
+      "/pixie/fontformats/opentype.nim",
+      "/pixie.nim",
+      "/pixie/fonts.nim",
+      "/pixie/simd/avx2.nim",
+      "/pixie/fileformats/svg.nim",
+      "/pixie/simd/sse2.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "5.0.6"
+    ]
+  }
+}

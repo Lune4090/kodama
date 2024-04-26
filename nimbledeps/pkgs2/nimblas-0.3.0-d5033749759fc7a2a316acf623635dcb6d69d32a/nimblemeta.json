@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/andreaferretti/nimblas",
+    "downloadMethod": "git",
+    "vcsRevision": "464c65cd001a27d5c364baa86dfcf19597535cf3",
+    "files": [
+      "/nimblas/cblas.nim",
+      "/nimblas.nimble",
+      "/nimblas.nim",
+      "/nimblas/private/common.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.3.0"
+    ]
+  }
+}

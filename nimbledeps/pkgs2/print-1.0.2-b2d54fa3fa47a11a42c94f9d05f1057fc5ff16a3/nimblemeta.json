@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/treeform/print",
+    "downloadMethod": "git",
+    "vcsRevision": "fb09637d6ebd6416b322a2b9bb95dd513040dea7",
+    "files": [
+      "/print.nimble",
+      "/print.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "1.0.2"
+    ]
+  }
+}

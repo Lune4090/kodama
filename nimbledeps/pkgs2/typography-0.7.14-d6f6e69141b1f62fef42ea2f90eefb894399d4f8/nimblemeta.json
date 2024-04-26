@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/treeform/typography",
+    "downloadMethod": "git",
+    "vcsRevision": "a2a5165c36e0098dea526712890fb7e988ba27f2",
+    "files": [
+      "/typography/systemfonts.nim",
+      "/typography/layout.nim",
+      "/typography/linebreak.nim",
+      "/typography/opentype/parser.nim",
+      "/typography/svgfont.nim",
+      "/typography/textboxes.nim",
+      "/typography/font.nim",
+      "/typography/rasterizer.nim",
+      "/typography/opentype/types.nim",
+      "/typography.nim",
+      "/typography.nimble",
+      "/typography/linebreak.txt"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.7.14"
+    ]
+  }
+}

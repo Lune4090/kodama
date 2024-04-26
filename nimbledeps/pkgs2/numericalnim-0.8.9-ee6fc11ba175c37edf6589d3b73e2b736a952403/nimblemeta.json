@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/SciNim/numericalnim/",
+    "downloadMethod": "git",
+    "vcsRevision": "bd3c612c736f1ed74f74623a2cb202d9d3bdc441",
+    "files": [
+      "/numericalnim.nimble",
+      "/numericalnim.nim",
+      "/numericalnim/ode.nim",
+      "/numericalnim/interpolate.nim",
+      "/numericalnim/differentiate.nim",
+      "/numericalnim/utils.nim",
+      "/numericalnim/private/arraymancerOverloads.nim",
+      "/numericalnim/rbf.nim",
+      "/numericalnim/integrate.nim",
+      "/numericalnim/optimize.nim",
+      "/numericalnim/common/commonTypes.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.8.9"
+    ]
+  }
+}

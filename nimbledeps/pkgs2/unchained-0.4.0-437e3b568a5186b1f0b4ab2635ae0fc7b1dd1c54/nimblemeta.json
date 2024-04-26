@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/SciNim/unchained",
+    "downloadMethod": "git",
+    "vcsRevision": "e657bf3da15b88b0e24ccb6a62be51f0952790e9",
+    "files": [
+      "/unchained/ct_api.nim",
+      "/unchained/api.nim",
+      "/unchained.nimble",
+      "/unchained/si_units.nim",
+      "/unchained/units.nim",
+      "/unchained/quantities.nim",
+      "/unchained/ct_unit_types.nim",
+      "/unchained/constants.nim",
+      "/unchained/cligenParseUnits.nim",
+      "/unchained/core_types.nim",
+      "/unchained/utils.nim",
+      "/unchained/parse_units.nim",
+      "/unchained/macro_utils.nim",
+      "/unchained/unit_typedesc_math.nim",
+      "/unchained/define_units.nim",
+      "/unchained.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.4.0"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/c-blake/cligen.git",
+    "downloadMethod": "git",
+    "vcsRevision": "f9c8b960ab07e83bde63d8ea790925708db0c981",
+    "files": [
+      "/cligen/dents.nim",
+      "/cligen/puSig.nim",
+      "/cligen/mergeCfgEnvMulMul.nim",
+      "/cligen/clCfgToml.nim",
+      "/cligen/humanUt.nim",
+      "/cligen/mfile.nim",
+      "/cligen/tern.nim",
+      "/cligen/trie.nim",
+      "/cligen/argcvt.nim",
+      "/cligen/fileUt.nim",
+      "/cligen/mergeCfgEnvMulti.nim",
+      "/cligen.nim",
+      "/cligen/syntaxHelp.nim",
+      "/cligen/mergeCfgEnv.nim",
+      "/cligen/strUt.nim",
+      "/cligen/clCfgInit.nim",
+      "/cligen/macUt.nim",
+      "/cligen/prefetch.nim",
+      "/cligen/procpool.nim",
+      "/cligen/colorScl.nim",
+      "/cligen/unixUt.nim",
+      "/cligen.nimble",
+      "/cligen/mslice.nim",
+      "/cligen/posixUt.nim",
+      "/cligen/statx.nim",
+      "/cligen/unsafeAddr.nim",
+      "/cligen/osUt.nim",
+      "/cligen/gcarc.nim",
+      "/cligen/print.nim",
+      "/cligen/conncomp.nim",
+      "/cligen/cfUt.nim",
+      "/cligen/tab.nim",
+      "/cligen/abbrev.nim",
+      "/cligen/magic.nim",
+      "/cligen/sysUt.nim",
+      "/cligen/helpTmpl.nim",
+      "/cligen/textUt.nim",
+      "/cligen/parseopt3.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "1.7.1"
+    ]
+  }
+}

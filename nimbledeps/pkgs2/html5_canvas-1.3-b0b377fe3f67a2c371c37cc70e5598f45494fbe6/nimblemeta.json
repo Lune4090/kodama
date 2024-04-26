@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://gitlab.com/define-private-public/HTML5-Canvas-Nim",
+    "downloadMethod": "git",
+    "vcsRevision": "9302d96efb5b4d0fc406e9eb20deca9c5465cef8",
+    "files": [
+      "/html5_canvas/TextMetrics.nim",
+      "/html5_canvas/CanvasPattern.nim",
+      "/html5_canvas.nim",
+      "/html5_canvas/CanvasGradient.nim",
+      "/html5_canvas/rgb.nim",
+      "/html5_canvas/CanvasRenderingContext2D.nim",
+      "/html5_canvas/ImageData.nim",
+      "/html5_canvas/Canvas.nim",
+      "/html5_canvas.nimble"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "1.3"
+    ]
+  }
+}

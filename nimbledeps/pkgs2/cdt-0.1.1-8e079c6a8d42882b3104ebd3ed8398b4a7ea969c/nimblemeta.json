@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/HugoGranstrom/cdt",
+    "downloadMethod": "git",
+    "vcsRevision": "49198f7d02c6df559aee408de4a6359731831f69",
+    "files": [
+      "/cdt/dt.nim",
+      "/cdt/edges.nim",
+      "/cdt/subdivisions.nim",
+      "/cdt/minmax.nim",
+      "/cdt/geometry.nim",
+      "/cdt/salewski.nim",
+      "/cdt/vertices.nim",
+      "/cdt/vectors.nim",
+      "/cdt/types.nim",
+      "/cdt/drawingarea.nim",
+      "/cdt.nimble"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.1",
+      "#head"
+    ]
+  }
+}

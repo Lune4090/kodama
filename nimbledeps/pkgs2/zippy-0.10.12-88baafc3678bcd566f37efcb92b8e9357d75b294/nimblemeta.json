@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/guzba/zippy",
+    "downloadMethod": "git",
+    "vcsRevision": "007f70335dcd3a3ff2f9300f404ab22454dcc8c4",
+    "files": [
+      "/zippy/deflate.nim",
+      "/zippy/tarballs_v1.nim",
+      "/zippy/adler32_simd.nim",
+      "/zippy/crc.nim",
+      "/zippy/adler32.nim",
+      "/zippy/lz77.nim",
+      "/zippy/snappy.nim",
+      "/zippy/ziparchives_v1.nim",
+      "/zippy/internal.nim",
+      "/zippy/common.nim",
+      "/zippy/inflate.nim",
+      "/zippy.nimble",
+      "/zippy/bitstreams.nim",
+      "/zippy/ziparchives.nim",
+      "/zippy/crc32_simd.nim",
+      "/zippy/tarballs.nim",
+      "/zippy.nim",
+      "/zippy/gzip.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.10.12"
+    ]
+  }
+}

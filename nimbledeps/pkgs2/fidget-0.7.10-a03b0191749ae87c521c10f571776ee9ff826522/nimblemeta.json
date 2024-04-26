@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/treeform/fidget",
+    "downloadMethod": "git",
+    "vcsRevision": "ccbf6169686ce99c02d09c66e59a905de793d554",
+    "files": [
+      "/fidget/common.nim",
+      "/fidget/opengl/formatflippy.nim",
+      "/fidget/opengl/shaders.nim",
+      "/fidget/_flippy.nim",
+      "/fidget/opengl/glsl/atlas.frag",
+      "/fidget.nimble",
+      "/fidget/opengl/glsl/emscripten/atlas.vert",
+      "/fidget/opengl/textures.nim",
+      "/fidget/opengl/glsl/emscripten/atlas.frag",
+      "/fidget/opengl/base.nim",
+      "/fidget/htmlbackend.nim",
+      "/fidget/opengl/glsl/410/atlas.vert",
+      "/fidget/opengl/perf.nim",
+      "/fidget/opengl/context.nim",
+      "/fidget/opengl/glsl/emscripten/mask.frag",
+      "/fidget/_cairo.nim",
+      "/fidget/opengl/glsl/atlas.vert",
+      "/fidget/dom2.nim",
+      "/fidget/opengl/glsl/410/atlas.frag",
+      "/fidget/opengl/glsl/410/mask.frag",
+      "/fidget/openglbackend.nim",
+      "/fidget/html/ajax.nim",
+      "/fidget/input.nim",
+      "/fidget/nullbackend.nim",
+      "/shell_minimal.html",
+      "/fidget/opengl/glsl/mask.frag",
+      "/fidget.nim",
+      "/fidget/opengl/buffers.nim",
+      "/fidget/internal.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.7.10"
+    ]
+  }
+}
