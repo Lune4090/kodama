@@ -1,4 +1,9 @@
+# std
+import sequtils, sugar
+# outer
 import unchained, math
+# original
+import simulator
 
 defUnit(Meter•Second⁻¹)
 defUnit(Meter•Second⁻²)
@@ -11,57 +16,137 @@ defUnit(Newton•s•Meter⁻¹) # ダンパー係数
 
 # objects
 type
-  mass_spring_dumper* = object
+  SinForces* = object
+    ω*: Hertz
+    amp*: Newton
+    fs*: seq[Newton]
+
+  ConstForces* = object
+    amp*: Newton
+    fs*: seq[Newton]
+
+  MassSpringDumper* = object
     M*: KiloGram
     K*: Newton•Meter⁻¹
     D*: Newton•s•Meter⁻¹
 
-proc new_mass_spring_dumper*(m: float, k: float, d: float): mass_spring_dumper =
-  return mass_spring_dumper(M: m.kg, K: k.N•m⁻¹, D: d.N•s•m⁻¹) 
+proc newSinForces*(ω: float, amp: float, t_seq: seq[float]): SinForces =
+  return SinForces(
+    ω: ω.s⁻¹, 
+    amp: amp.N, 
+    fs: t_seq.map(t => sin(ω.s⁻¹*t.s)*amp.N)
+  )
+
+proc newConstForces*(amp: float, t_seq: seq[float]): SinForces =
+  return SinForces(
+    amp: amp.N, 
+    fs: t_seq.map(t => t*amp.N)
+  )
+
+proc newMassSpringDumper*(m: float, k: float, d: float): MassSpringDumper =
+  return MassSpringDumper(M: m.kg, K: k.N•m⁻¹, D: d.N•s•m⁻¹) 
+
 
 # functions
-proc GetVfromX*(Δt: Second, x0: Meter, x1: Meter): Velocity =
-  let V = (x1 - x0)/Δt
+proc getVfromX*(Δt: MilliSecond, x0: Meter, x1: Meter): Velocity =
+  let V = (x0-x1)/Δt.to(Second)
   return V
 
-proc GetAfromX*(Δt: Second, x0: Meter, x1: Meter, x2: Meter): Acceleration =
-  let A = ((x0-x1)-(x1-x2))/Δt^2
+proc getAfromX*(Δt: MilliSecond, x0: Meter, x1: Meter, x2: Meter): Acceleration =
+  let A = ((x0-x1)-(x1-x2))/Δt.to(Second)^2
   return A
 
 # シンプルなバネマスダンパー系から成る2階非同次微分方程式
 # M*(d²x/dt²) + D*(dx/dt) + k*x = f(.const)を解き、軌跡seq[Meter]を得る 
-proc mass_spring_dumper_responces_to_f*(sys: mass_spring_dumper, ts: seq[Second], f: Newton, x0: Meter): seq[Meter] =
-  let M = sys.M
-  let K = sys.K
-  let D = sys.D
-  let λ1: Second⁻¹ = (-D/(2*M)) + sqrt(((D/(4*M))^2 - K/M))
-  let λ2: Second⁻¹ = (-D/(2*M)) - sqrt(((D/(4*M))^2 - K/M))
-  let c1: Meter = (λ2/(λ2-λ1))*x0
-  let c2: Meter = (λ1/(λ1-λ2))*x0
+proc responcesToForce*(sys: MassSpringDumper, force: ConstForces, sim: SimParams; x0 = 0.0.m): seq[Meter] =
+  let
+    M = sys.M
+    K = sys.K
+    D = sys.D
+    F = force.amp
+    cond = (D^2 - 4*M*K).toFloat
 
-  var ans = newSeqofCap[Meter](len(ts))
+  var
+    ans = newSeqofCap[Meter](sim.datanum)
 
-  for t in items(ts):
-    ans.add(c1*exp(λ1*t) + c2*exp(λ2*t) + f/K)
+  if cond > 0:
+    let
+      λ1: Second⁻¹ = (-D/(2*M)) + sqrt(((D/(2*M))^2 - K/M))
+      λ2: Second⁻¹ = (-D/(2*M)) - sqrt(((D/(2*M))^2 - K/M))
+      c1: Meter = (x0-F/K)*λ2/(λ2-λ1)
+      c2: Meter = -c1*λ1/λ2
 
+    for t in items(sim.t_seq):
+      ans.add(c1*exp(λ1*t) + c2*exp(λ2*t) + F/K)
+
+  elif cond == 0:
+    let
+      λ: Second⁻¹ = (-D/(2*M))
+      c1: Meter = x0-F/K
+      c2: Meter•Second⁻¹ = -c1*λ
+
+    for t in items(sim.t_seq):
+      ans.add(c1*exp(λ*t) + c2*t*exp(λ*t) + F/K)
+
+  else:
+    let
+      λ1: Second⁻¹ = (-D/(2*M))
+      λ2: Second⁻¹ = sqrt(-((D/(2*M))^2 - K/M))
+      c1: Meter = x0-F/K
+      c2: Meter = -c1*λ1/λ2
+
+    for t in items(sim.t_seq):
+      ans.add(exp(λ1*t)*(c1*cos(λ2*t)+c2*sin(λ2*t)) + F/K)
+    
   return ans
 
 # シンプルなバネマスダンパー系から成る2階非同次微分方程式
 # M*(d²x/dt²) + D*(dx/dt) + k*x = f*sin(kt)を解き、軌跡seq[Meter]を得る 
-proc mass_spring_dumper_responces_to_sin_kt*(sys: mass_spring_dumper, ts: seq[Second], f: Newton, ω: Second⁻¹, x0: Meter): seq[Meter] =
-  let M = sys.M
-  let K = sys.K
-  let D = sys.D
-  let λ1: Second⁻¹ = (-D/(2*M)) + sqrt(((D/(4*M))^2 - K/M))
-  let λ2: Second⁻¹ = (-D/(2*M)) - sqrt(((D/(4*M))^2 - K/M))
-  let c1: Meter = (λ2/(λ2-λ1))*x0
-  let c2: Meter = (λ1/(λ1-λ2))*x0
-  let tmp1: Kilogram•Second⁻² = K - ω^2 * M
-  let tmp2: Kilogram•Second⁻² = ω*D
+proc responcesToForce*(sys: MassSpringDumper, force: SinForces, sim: SimParams ; x0 = 0.0.m): seq[Meter] =
+  let
+    M = sys.M
+    K = sys.K
+    D = sys.D
+    ω = force.ω
+    F = force.amp
+    cond = (D^2 - 4*M*K).toFloat
 
-  var ans = newSeqofCap[Meter](len(ts))
+    tmp1: Kilogram•Second⁻² = K - M*ω^2
+    tmp2: Kilogram•Second⁻² = ω*D
 
-  for t in items(ts):
-    ans.add(c1*exp(λ1*t) + c2*exp(λ2*t) + tmp1/(tmp1^2 + tmp2^2) * f * sin(ω*t) + tmp2/(tmp1^2 + tmp2^2) * f * cos(ω*t))
+    a = F*tmp1/(tmp1^2+tmp2^2)
+    b = -F*tmp2/(tmp1^2+tmp2^2)
 
+  var
+    ans = newSeqofCap[Meter](sim.datanum)
+
+  if cond > 0:
+    let
+      λ1: Second⁻¹ = (-D/(2*M)) + sqrt(((D/(2*M))^2 - K/M))
+      λ2: Second⁻¹ = (-D/(2*M)) - sqrt(((D/(2*M))^2 - K/M))
+      c1: Meter = ((b-x0)*λ2-a*ω)/(λ1-λ2)
+      c2: Meter = -c1+x0-b
+
+    for t in items(sim.t_seq):
+      ans.add(c1*exp(λ1*t) + c2*exp(λ2*t) + a*sin(ω*t) + b*cos(ω*t))
+
+  elif cond == 0:
+    let
+      λ: Second⁻¹ = (-D/(2*M))
+      c1: Meter = x0-b
+      c2: Meter•Second⁻¹ = -c1*λ-a*ω
+
+    for t in items(sim.t_seq):
+      ans.add(c1*exp(λ*t) + c2*t*exp(λ*t) + a*sin(ω*t) + b*cos(ω*t))
+
+  else:
+    let
+      λ1: Second⁻¹ = (-D/(2*M))
+      λ2: Second⁻¹ = sqrt(-((D/(2*M))^2 - K/M))
+      c1: Meter = x0-b
+      c2: Meter = -(a*ω+c1*λ1)/λ2
+
+    for t in items(sim.t_seq):
+      ans.add(exp(λ1*t)*(c1*cos(λ2*t)+c2*sin(λ2*t)) + a*sin(ω*t) + b*cos(ω*t))
+    
   return ans

@@ -1,4 +1,7 @@
-import plotly, chroma, unchained, sequtils, sugar
+# std
+import sequtils, sugar
+# outer
+import plotly, chroma, unchained
 
 proc plot_inF_outXVA*(ts: seq[Second], inF: seq[Newton], outX: seq[Meter], outV: seq[Meter•Second⁻¹], outA: seq[Meter•Second⁻²], color_in1: seq[Color], color_out1: seq[Color], color_out2: seq[Color], color_out3: seq[Color]) =
 
