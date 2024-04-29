@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/clipboard",
+    "downloadMethod": "git",
+    "vcsRevision": "737d05a1bdd37b207e3381b38d4fa2256d51f4d5",
+    "files": [
+      "/clipboard/clipboard_x11.nim",
+      "/clipboard.nimble",
+      "/clipboard/clipboard_web.nim",
+      "/clipboard/clipboard_mac.nim",
+      "/clipboard.nim",
+      "/clipboard/type_conversions.nim",
+      "/clipboard/clipboard_win.nim",
+      "/clipboard/abstract_clipboard.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

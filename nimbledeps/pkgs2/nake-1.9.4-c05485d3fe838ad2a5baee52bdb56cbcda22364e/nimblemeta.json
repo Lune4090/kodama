@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/fowlmouth/nake/",
+    "downloadMethod": "git",
+    "vcsRevision": "8bfbd2fd86ea5935858a1c21a368952998c5e32b",
+    "files": [
+      "/LICENSE.rst",
+      "/nakelib.nim",
+      "/nake",
+      "/README.rst",
+      "/nake.nim",
+      "/nakefile.nim",
+      "/nake.nimble"
+    ],
+    "binaries": [
+      "nake"
+    ],
+    "specialVersions": [
+      "1.9.4"
+    ]
+  }
+}

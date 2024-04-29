@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/clurp",
+    "downloadMethod": "git",
+    "vcsRevision": "1f2f9e5f7b4da19c2dfe9d2052d19e5e344dad18",
+    "files": [
+      "/quote_emcc.nim",
+      "/clurp.nimble",
+      "/clurp.nim",
+      "/clurp"
+    ],
+    "binaries": [
+      "clurp"
+    ],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

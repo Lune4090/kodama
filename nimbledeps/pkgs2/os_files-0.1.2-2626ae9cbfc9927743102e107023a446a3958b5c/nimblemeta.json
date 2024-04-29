@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/tormund/os_files",
+    "downloadMethod": "git",
+    "vcsRevision": "1e7901282f1346b8848ce6df5730babc8307f943",
+    "files": [
+      "/os_files/private/osx_file_info.nim",
+      "/os_files/private_dialog/dialog_types.nim",
+      "/os_files.nimble",
+      "/os_files/private_dialog/unix_dialog.nim",
+      "/os_files/private/unix_file_info.nim",
+      "/os_files/private_dialog/js_dialog.nim",
+      "/os_files/dialog.nim",
+      "/os_files/private/win32_file_info.nim",
+      "/os_files/private_dialog/win32_dialog.nim",
+      "/os_files/file_info.nim",
+      "/os_files/private_dialog/osx_dialog.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.2"
+    ]
+  }
+}

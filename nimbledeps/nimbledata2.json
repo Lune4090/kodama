@@ -117,6 +117,9 @@
             "name": "pixie",
             "version": "5.0.6",
             "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "path": "/home/lune/kodama"
           }
         ]
       }
@@ -149,6 +152,9 @@
             "name": "plotly",
             "version": "0.3.3",
             "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          },
+          {
+            "path": "/home/lune/kodama"
           }
         ]
       }
@@ -236,6 +242,11 @@
             "name": "opengl",
             "version": "1.2.9",
             "checksum": "87ece9f3a9f99d17332b50885e15a4dcb18c51b5"
+          },
+          {
+            "name": "clipboard",
+            "version": "0.1.0",
+            "checksum": "beaedd7095bcaefeb82d0de6b01d9134a8686e27"
           }
         ]
       }
@@ -252,6 +263,188 @@
             "name": "fidget",
             "version": "0.7.10",
             "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "arraymancer": {
+      "0.7.29": {
+        "655301efe430cbf445e036cf7c502dfac8c835cc": [
+          {
+            "name": "numericalnim",
+            "version": "0.8.9",
+            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
+          },
+          {
+            "path": "/home/lune/kodama"
+          }
+        ]
+      }
+    },
+    "cdt": {
+      "0.1.1": {
+        "8e079c6a8d42882b3104ebd3ed8398b4a7ea969c": [
+          {
+            "name": "numericalnim",
+            "version": "0.8.9",
+            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
+          }
+        ]
+      }
+    },
+    "wasmrt": {
+      "0.1.0": {
+        "7bd4bd26a0673e8a2cdd7e31ba75a3aa0babba8e": [
+          {
+            "name": "jsbind",
+            "version": "0.1.1",
+            "checksum": "4b25dc5465197d5b72d46a75a1d73753d41cc062"
+          }
+        ]
+      }
+    },
+    "jsbind": {
+      "0.1.1": {
+        "4b25dc5465197d5b72d46a75a1d73753d41cc062": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          },
+          {
+            "name": "async_http_request",
+            "version": "0.1.4",
+            "checksum": "944652f72180b0daac91cd897a466e3a0f7c0625"
+          },
+          {
+            "name": "os_files",
+            "version": "0.1.2",
+            "checksum": "2626ae9cbfc9927743102e107023a446a3958b5c"
+          }
+        ]
+      }
+    },
+    "webview": {
+      "0.1.0": {
+        "2d714d280055de9d0a33e6a730f1099feb1261aa": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "ws": {
+      "0.5.0": {
+        "ae4daf4ae302d0431f3c2d385ae9d2fe767a3246": [
+          {
+            "name": "plotly",
+            "version": "0.3.3",
+            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
+          }
+        ]
+      }
+    },
+    "darwin": {
+      "0.1.1": {
+        "cc3ce28f54d05e423ec0a240f2dee19906bc48e9": [
+          {
+            "name": "plists",
+            "version": "0.2.0",
+            "checksum": "2009f80653d24dc399e784aff27d057cdfc1a863"
+          },
+          {
+            "name": "os_files",
+            "version": "0.1.2",
+            "checksum": "2626ae9cbfc9927743102e107023a446a3958b5c"
+          }
+        ]
+      }
+    },
+    "nimBMP": {
+      "0.1.8": {
+        "49964cc16945b9b4cc87b181201e6195b7df89d8": [
+          {
+            "name": "ttf",
+            "version": "0.2.13",
+            "checksum": "cc8b596b7f4fcadf6177dd1fd0d45efb64b290c1"
+          }
+        ]
+      }
+    },
+    "jnim": {
+      "0.5.2": {
+        "1d2d1e3582940f871a4657d40dad90bbc084fc8b": [
+          {
+            "name": "android",
+            "version": "0.2.0",
+            "checksum": "3b6004213ce350899ec479ac74d04cf998fb43dd"
+          }
+        ]
+      }
+    },
+    "oldgtk3": {
+      "0.1.0": {
+        "6d31de32a94eb25bf95b3e4269db0ee65f11d9d9": [
+          {
+            "name": "os_files",
+            "version": "0.1.2",
+            "checksum": "2626ae9cbfc9927743102e107023a446a3958b5c"
+          }
+        ]
+      }
+    },
+    "nest": {
+      "0.1.0": {
+        "9d33bc3b3ffe50bfa746389c97a024284d0b0c38": [
+          {
+            "name": "nester",
+            "version": "0.2.0",
+            "checksum": "b750fc49ce0c8baf301ec275affd95eccec9a2db"
+          }
+        ]
+      }
+    },
+    "cligen": {
+      "1.7.1": {
+        "ed12623769e29d0ddaceb997a4fa602272d4e7be": [
+          {
+            "name": "nester",
+            "version": "0.2.0",
+            "checksum": "b750fc49ce0c8baf301ec275affd95eccec9a2db"
+          },
+          {
+            "name": "clurp",
+            "version": "0.1.0",
+            "checksum": "b9ff36dc646bd586a1496a709e30425f7b6ff668"
+          },
+          {
+            "name": "fidget",
+            "version": "0.7.10",
+            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
+          }
+        ]
+      }
+    },
+    "nimPNG": {
+      "0.3.6": {
+        "fda304ec37a10426630bf0e328650b5c45377e39": [
+          {
+            "name": "nimwebp",
+            "version": "0.1.0",
+            "checksum": "0d1501a2df3d937918183af899eda88d15d4f604"
+          }
+        ]
+      }
+    },
+    "clurp": {
+      "0.1.0": {
+        "b9ff36dc646bd586a1496a709e30425f7b6ff668": [
+          {
+            "name": "nimwebp",
+            "version": "0.1.0",
+            "checksum": "0d1501a2df3d937918183af899eda88d15d4f604"
           }
         ]
       }
@@ -289,17 +482,6 @@
         ]
       }
     },
-    "cligen": {
-      "1.7.1": {
-        "ed12623769e29d0ddaceb997a4fa602272d4e7be": [
-          {
-            "name": "fidget",
-            "version": "0.7.10",
-            "checksum": "a03b0191749ae87c521c10f571776ee9ff826522"
-          }
-        ]
-      }
-    },
     "supersnappy": {
       "2.1.3": {
         "36a05ee6befe3764ed8e2a6fb5d0882c2fd090f8": [
@@ -320,31 +502,6 @@
         ]
       }
     },
-    "arraymancer": {
-      "0.7.29": {
-        "655301efe430cbf445e036cf7c502dfac8c835cc": [
-          {
-            "path": "/home/lune/kodama"
-          },
-          {
-            "name": "numericalnim",
-            "version": "0.8.9",
-            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
-          }
-        ]
-      }
-    },
-    "cdt": {
-      "0.1.1": {
-        "8e079c6a8d42882b3104ebd3ed8398b4a7ea969c": [
-          {
-            "name": "numericalnim",
-            "version": "0.8.9",
-            "checksum": "ee6fc11ba175c37edf6589d3b73e2b736a952403"
-          }
-        ]
-      }
-    },
     "numericalnim": {
       "0.8.9": {
         "ee6fc11ba175c37edf6589d3b73e2b736a952403": [
@@ -359,50 +516,6 @@
         "437e3b568a5186b1f0b4ab2635ae0fc7b1dd1c54": [
           {
             "path": "/home/lune/kodama"
-          }
-        ]
-      }
-    },
-    "wasmrt": {
-      "0.1.0": {
-        "7bd4bd26a0673e8a2cdd7e31ba75a3aa0babba8e": [
-          {
-            "name": "jsbind",
-            "version": "0.1.1",
-            "checksum": "4b25dc5465197d5b72d46a75a1d73753d41cc062"
-          }
-        ]
-      }
-    },
-    "jsbind": {
-      "0.1.1": {
-        "4b25dc5465197d5b72d46a75a1d73753d41cc062": [
-          {
-            "name": "plotly",
-            "version": "0.3.3",
-            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
-          }
-        ]
-      }
-    },
-    "webview": {
-      "0.1.0": {
-        "2d714d280055de9d0a33e6a730f1099feb1261aa": [
-          {
-            "name": "plotly",
-            "version": "0.3.3",
-            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
-          }
-        ]
-      }
-    },
-    "ws": {
-      "0.5.0": {
-        "ae4daf4ae302d0431f3c2d385ae9d2fe767a3246": [
-          {
-            "name": "plotly",
-            "version": "0.3.3",
-            "checksum": "a0687b7a917ebea721ceb9466125440074bac044"
           }
         ]
       }

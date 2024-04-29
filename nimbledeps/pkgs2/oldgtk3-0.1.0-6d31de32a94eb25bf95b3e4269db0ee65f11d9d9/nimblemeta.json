@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/stefansalewski/oldgtk3",
+    "downloadMethod": "git",
+    "vcsRevision": "4e60fd1c4c08241cc22336362fc4f487c633299c",
+    "files": [
+      "/oldgtk3/pango_cairo.nim",
+      "/oldgtk3/pango_fc.nim",
+      "/oldgtk3/pango_win32.nim",
+      "/oldgtk3/cairo_gl.nim",
+      "/oldgtk3/rsvg.nim",
+      "/oldgtk3/pango_ft2.nim",
+      "/oldgtk3/gdk_pixbuf.nim",
+      "/oldgtk3/gir.nim",
+      "/oldgtk3/gtksource.nim",
+      "/oldgtk3/gio.nim",
+      "/oldgtk3/glib.nim",
+      "/oldgtk3.nimble",
+      "/oldgtk3/gtk.nim",
+      "/oldgtk3/cairo.nim",
+      "/oldgtk3/gdk_win32.nim",
+      "/oldgtk3/gdk_wayland.nim",
+      "/oldgtk3/pango_coretext.nim",
+      "/oldgtk3/cairo_pragma.nim",
+      "/oldgtk3/gdk_x11.nim",
+      "/oldgtk3/gdk.nim",
+      "/oldgtk3/gdk_mir.nim",
+      "/oldgtk3/gobject.nim",
+      "/oldgtk3/cairo_win32.nim",
+      "/oldgtk3/cairo_xlib.nim",
+      "/oldgtk3/pango_ot.nim",
+      "/oldgtk3/atk.nim",
+      "/oldgtk3/pango_xft.nim",
+      "/oldgtk3/gdk_broadway.nim",
+      "/oldgtk3/gdk_quartz.nim",
+      "/oldgtk3/pango.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

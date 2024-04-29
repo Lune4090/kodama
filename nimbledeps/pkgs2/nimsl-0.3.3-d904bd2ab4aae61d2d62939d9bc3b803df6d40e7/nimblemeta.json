@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/nimsl",
+    "downloadMethod": "git",
+    "vcsRevision": "7ff6309ebe4bf9bc78338b71160802dabf0dfe7b",
+    "files": [
+      "/nimsl/emulation.nim",
+      "/nimsl/private/var_decls.nim",
+      "/nimsl.nimble",
+      "/nimsl/nimsl.nim",
+      "/nimsl/private/glsl_codegen.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.3.3"
+    ]
+  }
+}

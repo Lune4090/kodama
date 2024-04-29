@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/variant.git",
+    "downloadMethod": "git",
+    "vcsRevision": "3e60f6a8600d71b4f6b39b654f31069be7937d67",
+    "files": [
+      "/variant.nimble",
+      "/variant.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.2.13"
+    ]
+  }
+}

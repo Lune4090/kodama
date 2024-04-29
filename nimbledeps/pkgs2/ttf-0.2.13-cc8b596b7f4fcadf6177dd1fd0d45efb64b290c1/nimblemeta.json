@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/ttf",
+    "downloadMethod": "git",
+    "vcsRevision": "0b29c0d394dd41553c695b8b59a28dff91c60e4c",
+    "files": [
+      "/ttf/edtaa3func.nim",
+      "/ttf.nimble",
+      "/ttf.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.2.13"
+    ]
+  }
+}

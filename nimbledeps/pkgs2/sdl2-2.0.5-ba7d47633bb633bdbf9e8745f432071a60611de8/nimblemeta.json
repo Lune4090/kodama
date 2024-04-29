@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/nim-lang/sdl2",
+    "downloadMethod": "git",
+    "vcsRevision": "84d4702e838d684b7304882ffe796f57ef422fb6",
+    "files": [
+      "/sdl2.nimble",
+      "/sdl2/mixer.nim",
+      "/sdl2.nim",
+      "/sdl2/net.nim",
+      "/sdl2/haptic.nim",
+      "/sdl2/audio.nim",
+      "/sdl2/gfx.nim",
+      "/sdl2/image.nim",
+      "/sdl2/joystick.nim",
+      "/sdl2/private/keycodes.nim",
+      "/sdl2/ttf.nim",
+      "/sdl2/gamecontroller.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "2.0.5"
+    ]
+  }
+}

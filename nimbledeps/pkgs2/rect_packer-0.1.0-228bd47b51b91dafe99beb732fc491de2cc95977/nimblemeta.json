@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/rect_packer",
+    "downloadMethod": "git",
+    "vcsRevision": "fd27778418523e634f0b9cab393d70564938c259",
+    "files": [
+      "/rect_packer.nimble",
+      "/rect_packer.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

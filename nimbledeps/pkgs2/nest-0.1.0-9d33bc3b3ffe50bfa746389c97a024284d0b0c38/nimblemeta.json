@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/kedean/nest",
+    "downloadMethod": "git",
+    "vcsRevision": "03b9c54925965c991e83527b256423130657e87a",
+    "files": [
+      "/nest.nim",
+      "/nest.nimble"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

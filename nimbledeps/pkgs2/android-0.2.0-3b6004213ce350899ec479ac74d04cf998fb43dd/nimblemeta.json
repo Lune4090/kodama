@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/android",
+    "downloadMethod": "git",
+    "vcsRevision": "aeb70c43c268536f733b8d01cd0dd1612381bbb7",
+    "files": [
+      "/android/ndk/aasset_manager.nim",
+      "/android/view/surface_holder.nim",
+      "/android/provider/settings.nim",
+      "/android/content/res/resources.nim",
+      "/android/preference/preference_manager.nim",
+      "/android/content/context.nim",
+      "/android/view/surface_view.nim",
+      "/android/extras/pathutils.nim",
+      "/android/os/handler.nim",
+      "/android/ndk/anative_window.nim",
+      "/android.nimble",
+      "/android/content/context_wrapper.nim",
+      "/android/view/key_character_map.nim",
+      "/android/app/native_activity.nim",
+      "/android/app/activity.nim",
+      "/android/net/uri.nim",
+      "/android/view/window_manager.nim",
+      "/android/content/shared_preferences.nim",
+      "/android/ndk/arect.nim",
+      "/android/util/display_metrics.nim",
+      "/android/ndk/keycodes.nim",
+      "/android/ndk/anative_activity.nim",
+      "/android/view/inputmethod/input_method_manager.nim",
+      "/android/ndk/native_glue.nim",
+      "/android/app/application.nim",
+      "/android/ndk/aconfiguration.nim",
+      "/android/ndk/ainput.nim",
+      "/android/content/content_resolver.nim",
+      "/android/os/bundle.nim",
+      "/android/ndk/alooper.nim",
+      "/android/view/display.nim",
+      "/android/view/view.nim",
+      "/android/os/base_bundle.nim",
+      "/android/content/res/asset_manager.nim",
+      "/android/content/intent.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.2.0"
+    ]
+  }
+}

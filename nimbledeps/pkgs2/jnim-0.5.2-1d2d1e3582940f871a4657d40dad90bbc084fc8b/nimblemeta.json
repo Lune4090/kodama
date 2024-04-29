@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/jnim",
+    "downloadMethod": "git",
+    "vcsRevision": "752999701c6a3a6ec248d39e99df699bed187600",
+    "files": [
+      "/jnim/private/jni_api.nim",
+      "/jnim.nimble",
+      "/jnim/private/jni_export_old.nim",
+      "/jnim/java/lang.nim",
+      "/jnim/private/jni_generator.nim",
+      "/jnim/java/util.nim",
+      "/jnim/support/io/github/vegansk/jnim/NativeInvocationHandler.java",
+      "/jnim/private/jvm_finder.nim",
+      "/jnim/private/experimental/javap_parser.nim",
+      "/jnim/private/java_glue.nim",
+      "/jnim/private/jni_wrapper.nim",
+      "/jnim.nim",
+      "/jnim/private/jni_export.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.5.2"
+    ]
+  }
+}

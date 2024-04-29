@@ -11,4 +11,4 @@ bin           = @["kodama"]
 
 # Dependencies
 
-requires "nim >= 2.0.2", "fidget", "arraymancer", "numericalnim", "unchained", "plotly"
+requires "nim >= 2.0.2", "fidget", "arraymancer", "numericalnim", "unchained", "plotly", "chroma"

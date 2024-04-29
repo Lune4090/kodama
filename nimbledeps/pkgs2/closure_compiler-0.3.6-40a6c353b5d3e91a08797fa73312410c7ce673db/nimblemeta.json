@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/closure_compiler.git",
+    "downloadMethod": "git",
+    "vcsRevision": "27cf49a17da22ab0082562da45456047079fa8dd",
+    "files": [
+      "/closure_compiler.nimble",
+      "/compiler-latest/COPYING",
+      "/closure_compiler.nim",
+      "/compiler-latest/README.md",
+      "/closure_compiler",
+      "/compiler-latest/compiler.jar"
+    ],
+    "binaries": [
+      "closure_compiler"
+    ],
+    "specialVersions": [
+      "0.3.6"
+    ]
+  }
+}

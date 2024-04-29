@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/kiwi",
+    "downloadMethod": "git",
+    "vcsRevision": "2a9f88d1b96defc7cf5a163e338c1bffe14a1b7a",
+    "files": [
+      "/kiwi/symbolics.nim",
+      "/kiwi/solver.nim",
+      "/kiwi.nim",
+      "/kiwi/constraint.nim",
+      "/kiwi/term.nim",
+      "/kiwi/symbol.nim",
+      "/kiwi/variable.nim",
+      "/kiwi/util.nim",
+      "/kiwi/row.nim",
+      "/kiwi.nimble",
+      "/kiwi/strength.nim",
+      "/kiwi/expression.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.0"
+    ]
+  }
+}

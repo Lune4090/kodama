@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/plists",
+    "downloadMethod": "git",
+    "vcsRevision": "783f661aa38e8c93d88388d16b90ec35d38099c1",
+    "files": [
+      "/plists.nimble",
+      "/plists.nim"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.2.0"
+    ]
+  }
+}

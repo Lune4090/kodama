@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/tormund/nester",
+    "downloadMethod": "git",
+    "vcsRevision": "3718de13579a043695c544e4d1325bebe67f8acc",
+    "files": [
+      "/nestd",
+      "/nester.nimble",
+      "/nester.nim",
+      "/nestd.nim"
+    ],
+    "binaries": [
+      "nestd"
+    ],
+    "specialVersions": [
+      "0.2.0"
+    ]
+  }
+}

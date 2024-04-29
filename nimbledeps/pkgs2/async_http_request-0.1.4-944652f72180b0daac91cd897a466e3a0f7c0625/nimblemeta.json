@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "metaData": {
+    "url": "https://github.com/yglukhov/async_http_request",
+    "downloadMethod": "git",
+    "vcsRevision": "2a1b7ab3d2fc6d0935654863d4812c3719466b62",
+    "files": [
+      "/async_http_request.nim",
+      "/async_http_request.nimble"
+    ],
+    "binaries": [],
+    "specialVersions": [
+      "0.1.4"
+    ]
+  }
+}
