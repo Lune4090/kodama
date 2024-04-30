@@ -1367,7 +1367,6 @@ proc reservoirRunAndLearn() =
       characters "reservoir run & learn control panel"
 
 
-
 proc drawMain() =
   setTitle("kodama GUI")
 
