@@ -3,6 +3,6 @@
 ################
 
 # original
-import gui, reservoir
+import gui
 
 drawWindow()

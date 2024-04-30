@@ -3,12 +3,11 @@
 ################
 
 # std
-import math, strutils
-# import sequtils, sugar
+import math, strutils, sequtils, sugar
 # outer
-import unchained, fidget
+import unchained, fidget, arraymancer
 # original
-import simulator
+import simulator, reservoir
 
 loadFont("IBM Plex Sans", "IBMPlexSans-Regular.ttf")
 loadFont("IBM Plex Sans Bold", "IBMPlexSans-Bold.ttf")
@@ -32,6 +31,13 @@ const
 var
 
   selectedTab = "ReferenceSystem"
+  isholdingReservoir = false
+  isholdingInF = false
+  isholdingOutX = false
+  holdingReservoir: ReservoirSystem
+  holdingInF_unitless: seq[float]
+  holdingOutX_unitless: seq[float]
+
   sliderM = false
   sliderK = false
   sliderD = false
@@ -101,14 +107,45 @@ proc reservoirSystemControls() =
     onDown:
       fill "#3E656F"
       var
-        message = simulateReservoirSystem(readinSize, reservoirSize, readoutSize, sparsity, seednum)
-      echo message
+        output = simulateReservoirSystem(readinSize, reservoirSize, readoutSize, sparsity, seednum)
+      if output[0][0..5] != "ERROR:":
+        echo output[0]
+        echo output[1]
+        echo output[2]
+        echo output[3]
+        echo output[4]
+        holdingReservoir = output[5]
+        isholdingReservoir = true
+      else:
+        echo output[0]
 
     text "text":
       box 0, 0, 90, 20
       fill "#ffffff"
       font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
       characters "Run Reservoir"
+
+  group "button":
+    box 150, 250, 90, 20
+    cornerRadius 5    
+    fill "#72bdd0"
+    onHover:
+      fill "#5C8F9C"
+    onDown:
+      fill "#3E656F"
+      if isholdingReservoir == true and isholdingInF == true and isholdingOutX == true:
+
+        var
+          output = holdingReservoir.simulateReservoirLearning(holdingOutX_unitless.toTensor, holdingInF_unitless.toTensor, iter=1000,η=0.05)
+        echo output
+      else:
+        echo "first simulate the kinetics system you want to copy, then generate and simulate reservoir, finally, you will be able to start reservoir learning."
+
+    text "text":
+      box 0, 0, 90, 20
+      fill "#ffffff"
+      font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
+      characters "Learn Reservoir"
 
   # fraction
   group "input":
@@ -442,8 +479,19 @@ proc referenceSystemControls() =
         M = Mfrac*10.0.pow(Mexp.toFloat)
         K = Kfrac*10.0.pow(Kexp.toFloat)
         D = Dfrac*10.0.pow(Dexp.toFloat)
-        message = simulateReferenceSystem(M, K, D)
-      echo message
+        output = simulateReferenceSystem(M, K, D)
+      if output[0][0..5] != "ERROR:":
+        echo output[0]
+        echo output[1]
+        echo output[2]
+        echo output[3]
+        echo output[4]
+        holdingInF_unitless = output[1].map(x => x.toFloat)
+        holdingOutX_unitless = output[2].map(x => x.toFloat)
+        isholdingInF = true
+        isholdingOutX = true
+      else:
+        echo output[0]
 
     text "text":
       box 0, 0, 90, 20

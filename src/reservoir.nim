@@ -35,16 +35,19 @@ proc newReservoir*(readinSize: int, reservoirSize: int, readoutSize: int, sparsi
 
   return ReservoirSystem(
     readin: readin_seq.toTensor.reshape(reservoirSize, readinSize),
-    reservoir: reservoir_seq.toTensor.reshape(reservoirSize, 1),
+    reservoir: reservoir_seq.toTensor.reshape(reservoirSize),
     reservoirUpdate: reservoir_update_seq.toTensor.reshape(reservoirSize, reservoirSize),
     readout: readout_seq.toTensor.reshape(readoutSize, reservoirSize)
   )
 
-proc responcesToInput*(sys: var ReservoirSystem, inX: Tensor[float]): Tensor[float] =
-  sys.reservoir = (sys.readin * inX + sys.reservoirUpdate * sys.reservoir)
-  echo sys.readin
-  echo inX
-  echo sys.reservoir
-  var
-    val = sys.readout * sys.reservoir
-  return val.reshape(val.shape[0]*val.shape[1])
+proc responcesToInput*(sys: var ReservoirSystem, input: Tensor[float]): Tensor[float] =
+
+  # reservoir update rule
+  sys.reservoir = (sys.readin * input + sys.reservoirUpdate * sys.reservoir)
+  # read answer only from reservoir (no highway)
+  return sys.readout * sys.reservoir
+
+proc learnFromTeacher*(sys: var ReservoirSystem, pred: Tensor[float], teacherdata: Tensor[float], η: range[0.0..1.0]) =
+  for row in 0..<sys.readout.shape[0]:
+    for col in 0..<sys.readout.shape[1]:
+      sys.readout[row, col] -= η*sys.reservoir[col]*(pred[row]-teacherdata[row])

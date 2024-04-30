@@ -5,7 +5,7 @@ import unchained, chroma, arraymancer
 # original
 import plot, parameters, dynamics, reservoir
 
-proc simulateReferenceSystem*(M: float, K: float, D: float; time = 30.0, Δt = 1.0, Forcetype = "sin", F = 1.0, ω = 1.0): string =
+proc simulateReferenceSystem*(M: float, K: float, D: float; time = 30.0, Δt = 1.0, Forcetype = "sin", F = 1.0, ω = 1.0): tuple =
   if Forcetype == "sin":
 
     ################
@@ -72,13 +72,11 @@ proc simulateReferenceSystem*(M: float, K: float, D: float; time = 30.0, Δt = 1
       color_outA,
     )
 
-    return "Simulation Ended"
-
-  else:
-    return "Error: ForceType Mismatch"
+    return ("Simulation Ended", inputF.fs, outputX, outputV, outputA)
 
 
-proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int; time = 30.0, Δt = 1.0, Forcetype = "sin", F = 1.0, ω = 1.0): string =
+# ここ、リザバーシステムは力学系と違って学習が必要だから、リザバー生成と振る舞いのシミュレーション、及び教師データに基づく学習は全て分離すべきでは?
+proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int; time = 30.0, Δt = 1.0, Forcetype = "sin", F = 1.0, ω = 1.0): tuple =
   if Forcetype == "sin":
 
     ################
@@ -92,7 +90,6 @@ proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int; t
     var
       sys_test = newReservoir(I, R, O, sp, seednum)
 
-    var
       # input & output definition
       inputF  = force_sin
       outputV = newSeqOfCap[Meter•Second⁻¹](sim.datanum)
@@ -113,7 +110,7 @@ proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int; t
       outputX = newSeq[Meter](sim.datanum)
 
     for i, x in pairs(fs):
-      var inx = newSeq[float](I).map(x => fs[i]).toTensor.reshape(I,1)
+      var inx = newSeq[float](I).map(x => fs[i]).toTensor.reshape(I)
       outputX[i] = sys_test.responcesToInput(inx).toSeq1D[0].m
 
     # variables to calculate system responce
@@ -152,4 +149,17 @@ proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int; t
       color_outA,
     )
 
-    return "Simulation Ended"
+    return ("Simulation Ended", inputF.fs, outputX, outputV, outputA, sys_test)
+
+proc simulateReservoirLearning*(sys: var ReservoirSystem, teacherdata: Tensor[float], inputdata: Tensor[float]; iter: int = 100, η: range[0.0..1.0] = 0.01): seq[float] =
+  result = newseq[float](iter)
+  for i in 0..<iter:
+    var rse = 0.0
+    for i, data in pairs(inputdata.toSeq1D):
+      var inx = newSeq[float](sys.readin.shape[0]).map(x => data).toTensor
+      var pred = sys.responcesToInput(inx)
+
+      sys.learnFromTeacher(pred, @[teacherdata[i]].toTensor, η)
+      rse += dot(pred, @[teacherdata[i]].toTensor)
+    echo rse
+    result.add(rse)
