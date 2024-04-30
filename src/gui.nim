@@ -14,37 +14,47 @@ loadFont("IBM Plex Sans Bold", "IBMPlexSans-Bold.ttf")
 
 const
   SLIDER_LENGTH = 150
-  FRAC_LIM_MIN = 1.0
-  FRAC_LIM_MAX = 10.0
-  EXP_LIM_MIN = -10
-  EXP_LIM_MAX = 10
+  FRAC_MIN = 1.0
+  FRAC_MAX = 10.0
+  EXP_MIN = -10
+  EXP_MAX = 10
 
-  READIN_LIM_MIN = 1
-  READIN_LIM_MAX = 10_000
-  RESERVOIR_LIM_MIN = 1
-  RESERVOIR_LIM_MAX = 10_000
-  READOUT_LIM_MIN = 1
-  READOUT_LIM_MAX = 1
-  SPARSITY_LIM_MIN = 0.0
-  SPARSITY_LIM_MAX = 1.0
+  READIN_MIN = 1
+  READIN_MAX = 10_000
+  RESERVOIR_MIN = 1
+  RESERVOIR_MAX = 10_000
+  READOUT_MIN = 1
+  READOUT_MAX = 1
+  SPARSITY_MIN = 0.0
+  SPARSITY_MAX = 1.0
+
+  LEARNINGRATE_MIN = 0.0
+  LEARNINGRATE_MAX = 1.0
+  ITERATION_MAX = 1000
+  ITERATION_MIN = 1
+  
 
 var
 
   # Frags
-  selectedTab = "InputForce"
+  selectedTab = "InputSettings"
 
   isholdingReservoir = false
   isholdingSimIns = false
-  isholdingInF = false
-  isholdingRefsysOutX = false
+  isholdingInputF = false
+  isholdingRefOutputX = false
   isholdingReservoirOutX = false
 
   # States of GUI
-  SimIns: SimParams
-  ReservoirIns: ReservoirSystem
-  InF_sin_INS: SinForces
-  RefsysOutX_unitless: seq[float]
-  ReservoirOutX_unitless: seq[float]
+  simParamsIns: SimParams
+  reservoirIns: ReservoirSystem
+  inputFsinIns: SinForces
+  refOutputX_unitless: seq[float]
+  reservoirOutputX_unitless: seq[float]
+
+  # for simulator
+  time = 30.0
+  Δt = 0.1
 
   # for input (force)
   sliderω = false
@@ -52,8 +62,8 @@ var
   sliderω_knob = 60
   sliderF_knob = 60
 
-  ωfrac: float = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderω_knob-1)/(SLIDER_LENGTH-1)
-  Ffrac: float = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderF_knob-1)/(SLIDER_LENGTH-1)
+  ωfrac: float = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderω_knob-1)/(SLIDER_LENGTH-1)
+  Ffrac: float = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderF_knob-1)/(SLIDER_LENGTH-1)
   ωexp: int = 0
   Fexp: int = 0
 
@@ -70,9 +80,9 @@ var
   sliderK_knob = 60
   sliderD_knob = 90
 
-  Mfrac: float = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderM_knob-1)/(SLIDER_LENGTH-1)
-  Kfrac: float = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderK_knob-1)/(SLIDER_LENGTH-1)
-  Dfrac: float = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderD_knob-1)/(SLIDER_LENGTH-1)
+  Mfrac: float = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderM_knob-1)/(SLIDER_LENGTH-1)
+  Kfrac: float = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderK_knob-1)/(SLIDER_LENGTH-1)
+  Dfrac: float = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderD_knob-1)/(SLIDER_LENGTH-1)
   Mexp: int = 0
   Kexp: int = 0
   Dexp: int = 0
@@ -83,6 +93,18 @@ var
   Mexp_str = ""
   Kexp_str = ""
   Dexp_str = ""
+
+  # for learning
+  sliderη = false
+  sliderN = false
+  sliderη_knob = 60
+  sliderN_knob = 60
+
+  η: float = LEARNINGRATE_MIN + (LEARNINGRATE_MAX-LEARNINGRATE_MIN)*(sliderη_knob-1)/(SLIDER_LENGTH-1)
+  N: int = ITERATION_MIN + ((ITERATION_MAX-ITERATION_MIN)*(sliderN_knob-1)/(SLIDER_LENGTH-1)).toInt
+
+  η_str = ""
+  N_str = ""
 
   readinSize: int = 10
   reservoirSize: int = 10
@@ -121,7 +143,7 @@ proc basicText() =
       layoutAlign laStretch
 
 
-proc inputForceControls() =
+proc inputSettings() =
 
   group "slider":
     box 240, 80, SLIDER_LENGTH, 10
@@ -133,7 +155,7 @@ proc inputForceControls() =
       sliderω_knob = clamp(sliderω_knob, 1, SLIDER_LENGTH)
       sliderω = buttonDown[MOUSE_LEFT]
       
-      ωfrac = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderω_knob-1)/(SLIDER_LENGTH-1)
+      ωfrac = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderω_knob-1)/(SLIDER_LENGTH-1)
       if len($ωfrac) >= 5:
         ωfrac_str = ($ωfrac)[0..4]
       else:
@@ -164,7 +186,7 @@ proc inputForceControls() =
       sliderF_knob = clamp(sliderF_knob, 1, SLIDER_LENGTH)
       sliderF = buttonDown[MOUSE_LEFT]
 
-      Ffrac = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderF_knob-1)/(SLIDER_LENGTH-1)
+      Ffrac = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderF_knob-1)/(SLIDER_LENGTH-1)
       if len($Ffrac) >= 5:
         Ffrac_str = ($Ffrac)[0..4]
       else:
@@ -185,7 +207,6 @@ proc inputForceControls() =
       cornerRadius 2
       strokeWeight 1
 
-  # Run button
   group "button":
     box 420, 250, 90, 20
     cornerRadius 5    
@@ -197,21 +218,19 @@ proc inputForceControls() =
       var
         F = Ffrac*10.0.pow(Fexp.toFloat)
         ω = ωfrac*10.0.pow(ωexp.toFloat)
-        output = generateInputForce(F, ω, Forcetype = "sin")
-      if output[0][0..5] != "ERROR:":
-        echo output[0]
-        SimIns = output[1]
-        InF_sin_INS = output[2]
-        isholdingSimIns = true
-        isholdingInF = true
-      else:
-        echo output[0]
+
+      simParamsIns = newSimParams(time, Δt)
+      inputFsinIns = newSinForces(ω, F, simParamsIns.t_seq.map(x => x.toFloat))
+
+      isholdingSimIns = true
+      isholdingInputF = true
+      echo "simulator parameters spawned"
 
     text "text":
       box 0, 0, 90, 20
       fill "#ffffff"
       font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
-      characters "Spawn SimIns"
+      characters "spawn"
 
   # fraction
   group "input":
@@ -225,9 +244,9 @@ proc inputForceControls() =
       try:
         if ωfrac_str != "":
           let tmp = ωfrac_str.parseFloat
-          if FRAC_LIM_MIN <= tmp and tmp <= FRAC_LIM_MAX:
+          if FRAC_MIN <= tmp and tmp <= FRAC_MAX:
             ωfrac = tmp
-            sliderω_knob = ((ωfrac-FRAC_LIM_MIN)/(FRAC_LIM_MAX-FRAC_LIM_MIN)*(SLIDER_LENGTH-1)).toInt+1
+            sliderω_knob = ((ωfrac-FRAC_MIN)/(FRAC_MAX-FRAC_MIN)*(SLIDER_LENGTH-1)).toInt+1
           else:
             var e: ref ValueError
             new(e)
@@ -269,7 +288,7 @@ proc inputForceControls() =
       try:
         if ωexp_str != "":
           let tmp = ωexp_str.parseInt
-          if EXP_LIM_MIN <= tmp and tmp <= EXP_LIM_MAX:
+          if EXP_MIN <= tmp and tmp <= EXP_MAX:
             ωexp = tmp
           else:
             var e: ref ValueError
@@ -318,9 +337,9 @@ proc inputForceControls() =
       try:
         if Ffrac_str != "":
           let tmp = Ffrac_str.parseFloat
-          if FRAC_LIM_MIN <= tmp and tmp <= FRAC_LIM_MAX:
+          if FRAC_MIN <= tmp and tmp <= FRAC_MAX:
             Ffrac = tmp
-            sliderF_knob = ((Ffrac-FRAC_LIM_MIN)/(FRAC_LIM_MAX-FRAC_LIM_MIN)*(SLIDER_LENGTH-1)).toInt+1
+            sliderF_knob = ((Ffrac-FRAC_MIN)/(FRAC_MAX-FRAC_MIN)*(SLIDER_LENGTH-1)).toInt+1
           else:
             var e: ref ValueError
             new(e)
@@ -362,7 +381,7 @@ proc inputForceControls() =
       try:
         if Fexp_str != "":
           let tmp = Fexp_str.parseInt
-          if EXP_LIM_MIN <= tmp and tmp <= EXP_LIM_MAX:
+          if EXP_MIN <= tmp and tmp <= EXP_MAX:
             Fexp = tmp
           else:
             var e: ref ValueError
@@ -443,9 +462,9 @@ proc inputForceControls() =
       fill "#46607e"
       strokeWeight 1
       font "IBM Plex Sans", 20, 200, 0, hLeft, vCenter
-      characters "reference system control panel"
+      characters "input setting control panel"
 
-proc referenceSystemControls() =
+proc referenceSettings() =
 
   group "slider":
     box 240, 80, SLIDER_LENGTH, 10
@@ -457,7 +476,7 @@ proc referenceSystemControls() =
       sliderM_knob = clamp(sliderM_knob, 1, SLIDER_LENGTH)
       sliderM = buttonDown[MOUSE_LEFT]
       
-      Mfrac = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderM_knob-1)/(SLIDER_LENGTH-1)
+      Mfrac = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderM_knob-1)/(SLIDER_LENGTH-1)
       if len($Mfrac) >= 5:
         Mfrac_str = ($Mfrac)[0..4]
       else:
@@ -488,7 +507,7 @@ proc referenceSystemControls() =
       sliderK_knob = clamp(sliderK_knob, 1, SLIDER_LENGTH)
       sliderK = buttonDown[MOUSE_LEFT]
 
-      Kfrac = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderK_knob-1)/(SLIDER_LENGTH-1)
+      Kfrac = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderK_knob-1)/(SLIDER_LENGTH-1)
       if len($Kfrac) >= 5:
         Kfrac_str = ($Kfrac)[0..4]
       else:
@@ -519,7 +538,7 @@ proc referenceSystemControls() =
       sliderD_knob = clamp(sliderD_knob, 1, SLIDER_LENGTH)
       sliderD = buttonDown[MOUSE_LEFT]
 
-      Dfrac = FRAC_LIM_MIN + (FRAC_LIM_MAX-FRAC_LIM_MIN)*(sliderD_knob-1)/(SLIDER_LENGTH-1)
+      Dfrac = FRAC_MIN + (FRAC_MAX-FRAC_MIN)*(sliderD_knob-1)/(SLIDER_LENGTH-1)
       if len($Dfrac) >= 5:
         Dfrac_str = ($Dfrac)[0..4]
       else:
@@ -541,7 +560,6 @@ proc referenceSystemControls() =
       strokeWeight 1
 
 
-  # Run button
   group "button":
     box 420, 250, 90, 20
     cornerRadius 5    
@@ -550,19 +568,16 @@ proc referenceSystemControls() =
       fill "#5C8F9C"
     onDown:
       fill "#3E656F"
-      if isholdingSimIns == true and isholdingInF == true:
+      if isholdingSimIns == true and isholdingInputF == true:
         var
           M = Mfrac*10.0.pow(Mexp.toFloat)
           K = Kfrac*10.0.pow(Kexp.toFloat)
           D = Dfrac*10.0.pow(Dexp.toFloat)
-          output = simulateReferenceSystem(M, K, D, SimIns, InF_sin_INS)
+          output = simulateReferenceSystem(M, K, D, simParamsIns, inputFsinIns)
         if output[0][0..5] != "ERROR:":
           echo output[0]
-          echo output[1]
-          echo output[2]
-          echo output[3]
-          RefsysOutX_unitless = output[1].map(x => x.toFloat)
-          isholdingRefsysOutX = true
+          refOutputX_unitless = output[1].map(x => x.toFloat)
+          isholdingRefOutputX = true
         else:
           echo output[0]
 
@@ -570,7 +585,7 @@ proc referenceSystemControls() =
       box 0, 0, 90, 20
       fill "#ffffff"
       font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
-      characters "Run RefSys"
+      characters "spawn"
 
   # fraction
   group "input":
@@ -584,9 +599,9 @@ proc referenceSystemControls() =
       try:
         if Mfrac_str != "":
           let tmp = Mfrac_str.parseFloat
-          if FRAC_LIM_MIN <= tmp and tmp <= FRAC_LIM_MAX:
+          if FRAC_MIN <= tmp and tmp <= FRAC_MAX:
             Mfrac = tmp
-            sliderM_knob = ((Mfrac-FRAC_LIM_MIN)/(FRAC_LIM_MAX-FRAC_LIM_MIN)*(SLIDER_LENGTH-1)).toInt+1
+            sliderM_knob = ((Mfrac-FRAC_MIN)/(FRAC_MAX-FRAC_MIN)*(SLIDER_LENGTH-1)).toInt+1
           else:
             var e: ref ValueError
             new(e)
@@ -627,9 +642,9 @@ proc referenceSystemControls() =
       try:
         if Kfrac_str != "":
           let tmp = Kfrac_str.parseFloat
-          if FRAC_LIM_MIN <= tmp and tmp <= FRAC_LIM_MAX:
+          if FRAC_MIN <= tmp and tmp <= FRAC_MAX:
             Kfrac = tmp
-            sliderK_knob = ((Kfrac-FRAC_LIM_MIN)/(FRAC_LIM_MAX-FRAC_LIM_MIN)*(SLIDER_LENGTH-1)).toInt+1
+            sliderK_knob = ((Kfrac-FRAC_MIN)/(FRAC_MAX-FRAC_MIN)*(SLIDER_LENGTH-1)).toInt+1
           else:
             var e: ref ValueError
             new(e)
@@ -669,9 +684,9 @@ proc referenceSystemControls() =
       try:
         if Dfrac_str != "":
           let tmp = Dfrac_str.parseFloat
-          if FRAC_LIM_MIN <= tmp and tmp <= FRAC_LIM_MAX:
+          if FRAC_MIN <= tmp and tmp <= FRAC_MAX:
             Dfrac = tmp
-            sliderD_knob = ((Dfrac-FRAC_LIM_MIN)/(FRAC_LIM_MAX-FRAC_LIM_MIN)*(SLIDER_LENGTH-1)).toInt+1
+            sliderD_knob = ((Dfrac-FRAC_MIN)/(FRAC_MAX-FRAC_MIN)*(SLIDER_LENGTH-1)).toInt+1
           else:
             var e: ref ValueError
             new(e)
@@ -712,7 +727,7 @@ proc referenceSystemControls() =
       try:
         if Mexp_str != "":
           let tmp = Mexp_str.parseInt
-          if EXP_LIM_MIN <= tmp and tmp <= EXP_LIM_MAX:
+          if EXP_MIN <= tmp and tmp <= EXP_MAX:
             Mexp = tmp
           else:
             var e: ref ValueError
@@ -747,7 +762,7 @@ proc referenceSystemControls() =
       try:
         if Kexp_str != "":
           let tmp = Kexp_str.parseInt
-          if EXP_LIM_MIN <= tmp and tmp <= EXP_LIM_MAX:
+          if EXP_MIN <= tmp and tmp <= EXP_MAX:
             Kexp = tmp
           else:
             var e: ref ValueError
@@ -782,7 +797,7 @@ proc referenceSystemControls() =
       try:
         if Dexp_str != "":
           let tmp = Dexp_str.parseInt
-          if EXP_LIM_MIN <= tmp and tmp <= EXP_LIM_MAX:
+          if EXP_MIN <= tmp and tmp <= EXP_MAX:
             Dexp = tmp
           else:
             var e: ref ValueError
@@ -868,11 +883,10 @@ proc referenceSystemControls() =
       fill "#46607e"
       strokeWeight 1
       font "IBM Plex Sans", 20, 200, 0, hLeft, vCenter
-      characters "reference system control panel"
+      characters "reference setting control panel"
 
-proc reservoirSystemControls() =
+proc reservoirSettings() =
 
-  # Run button
   group "button":
     box 420, 250, 90, 20
     cornerRadius 5    
@@ -881,64 +895,17 @@ proc reservoirSystemControls() =
       fill "#5C8F9C"
     onDown:
       fill "#3E656F"
-      if isholdingSimIns == true and isholdingInF == true and isholdingRefsysOutX == true:
-        if isholdingReservoir == true:
-          var
-            output = ReservoirIns.simulateReservoirSystem(readinSize, reservoirSize, readoutSize, sparsity, seednum, SimIns, InF_sin_INS)
-          if output[0][0..5] != "ERROR:":
-            echo output[0]
-            echo output[1]
-            echo output[2]
-            echo output[3]
-            ReservoirOutX_unitless = output[1].map(x => x.toFloat)
-            ReservoirIns = output[4]
-            isholdingReservoir = true
-          else:
-            echo output[0]
-        else:
-          var
-            output = simulateReservoirSystem(readinSize, reservoirSize, readoutSize, sparsity, seednum, SimIns, InF_sin_INS)
-          if output[0][0..5] != "ERROR:":
-            echo output[0]
-            echo output[1]
-            echo output[2]
-            echo output[3]
-            ReservoirOutX_unitless = output[1].map(x => x.toFloat)
-            ReservoirIns = output[4]
-            isholdingReservoir = true
-          else:
-            echo output[0]
+      if isholdingSimIns == true and isholdingInputF == true and isholdingRefOutputX == true:
+        reservoirIns = newReservoir(readinSize, reservoirSize, readoutSize, sparsity, seednum)
+        isholdingReservoir = true
+        echo "reservoir instance spawned"
 
     text "text":
       box 0, 0, 90, 20
       fill "#ffffff"
       font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
-      characters "Run Reservoir"
+      characters "spawn"
 
-  group "button":
-    box 150, 250, 100, 20
-    cornerRadius 5    
-    fill "#72bdd0"
-    onHover:
-      fill "#5C8F9C"
-    onDown:
-      fill "#3E656F"
-      if isholdingSimIns == true and isholdingInF == true and isholdingRefsysOutX == true and isholdingReservoir == true:
-        var
-          output = ReservoirIns.simulateReservoirLearning(RefsysOutX_unitless.toTensor, InF_sin_INS.Fseq.map(x => x.toFloat).toTensor, iter=10, η=0.01)
-        if output[0][0..5] != "ERROR:":
-          echo output[0]
-          echo output[1]
-          ReservoirIns = output[2]
-
-      else:
-        echo "first generate input force and simulate the reference system responces to it, then generate and simulate reservoir, finally, you will be able to start reservoir learning."
-
-    text "text":
-      box 0, 0, 100, 20
-      fill "#ffffff"
-      font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
-      characters "Learn Reservoir"
 
   # fraction
   group "input":
@@ -952,7 +919,7 @@ proc reservoirSystemControls() =
       try:
         if readinSize_str != "":
           let tmp = readinSize_str.parseInt
-          if READIN_LIM_MIN <= tmp and tmp <= READIN_LIM_MAX:
+          if READIN_MIN <= tmp and tmp <= READIN_MAX:
             readinSize = tmp
           else:
             var e: ref ValueError
@@ -987,7 +954,7 @@ proc reservoirSystemControls() =
       try:
         if reservoirSize_str != "":
           let tmp = reservoirSize_str.parseInt
-          if RESERVOIR_LIM_MIN <= tmp and tmp <= RESERVOIR_LIM_MAX:
+          if RESERVOIR_MIN <= tmp and tmp <= RESERVOIR_MAX:
             reservoirSize = tmp
           else:
             var e: ref ValueError
@@ -1022,7 +989,7 @@ proc reservoirSystemControls() =
       try:
         if readoutSize_str != "":
           let tmp = readoutSize_str.parseInt
-          if READOUT_LIM_MIN <= tmp and tmp <= READOUT_LIM_MAX:
+          if READOUT_MIN <= tmp and tmp <= READOUT_MAX:
             readoutSize = tmp
           else:
             var e: ref ValueError
@@ -1056,7 +1023,7 @@ proc reservoirSystemControls() =
       try:
         if sparsity_str != "":
           let tmp = sparsity_str.parseFloat
-          if SPARSITY_LIM_MIN <= tmp and tmp <= SPARSITY_LIM_MAX:
+          if SPARSITY_MIN <= tmp and tmp <= SPARSITY_MAX:
             sparsity = tmp
           else:
             var e: ref ValueError
@@ -1161,7 +1128,243 @@ proc reservoirSystemControls() =
       fill "#46607e"
       strokeWeight 1
       font "IBM Plex Sans", 20, 200, 0, hLeft, vCenter
-      characters "reservoir system control panel"
+      characters "reservoir setting control panel"
+
+
+proc reservoirRunAndLearn() =
+
+  group "button":
+    box 420, 250, 90, 20
+    cornerRadius 5    
+    fill "#72bdd0"
+    onHover:
+      fill "#5C8F9C"
+    onDown:
+      fill "#3E656F"
+      if isholdingSimIns == true and isholdingInputF == true and isholdingRefOutputX == true:
+        if isholdingReservoir == true:
+          var
+            output = reservoirIns.simulateReservoirSystem(readinSize, reservoirSize, readoutSize, sparsity, seednum, simParamsIns, inputFsinIns)
+          if output[0][0..5] != "ERROR:":
+            echo output[0]
+            reservoirOutputX_unitless = output[1].map(x => x.toFloat)
+            reservoirIns = output[4]
+            isholdingReservoir = true
+          else:
+            echo output[0]
+        else:
+          echo "You must create reservoir instance."
+      else:
+        echo "You must create input parameters / reference instances."
+
+    text "text":
+      box 0, 0, 90, 20
+      fill "#ffffff"
+      font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
+      characters "run"
+
+  group "button":
+    box 150, 250, 100, 20
+    cornerRadius 5    
+    fill "#72bdd0"
+    onHover:
+      fill "#5C8F9C"
+    onDown:
+      fill "#3E656F"
+      if isholdingSimIns == true and isholdingInputF == true and isholdingRefOutputX == true and isholdingReservoir == true:
+        var
+          output = reservoirIns.simulateReservoirLearning(refOutputX_unitless.toTensor, inputFsinIns.Fseq.map(x => x.toFloat).toTensor, iter=N, η=η)
+        if output[0][0..5] != "ERROR:":
+          echo output[0]
+          echo output[1]
+          reservoirIns = output[2]
+
+      else:
+        echo "first generate input force and simulate the reference system responces to it, then generate and simulate reservoir, finally, you will be able to start reservoir learning."
+
+    text "text":
+      box 0, 0, 100, 20
+      fill "#ffffff"
+      font "IBM Plex Sans", 12, 200, 0, hCenter, vCenter
+      characters "learn"
+
+  group "slider":
+    box 240, 80, SLIDER_LENGTH, 10
+    onMouseDown:
+      sliderη = true
+
+    if sliderη:
+      sliderη_knob = int(mouse.pos.x - current.screenBox.x)
+      sliderη_knob = clamp(sliderη_knob, 1, SLIDER_LENGTH)
+      sliderη = buttonDown[MOUSE_LEFT]
+      
+      η = LEARNINGRATE_MIN + (LEARNINGRATE_MAX-LEARNINGRATE_MIN)*(sliderη_knob-1)/(SLIDER_LENGTH-1)
+      if len($η) >= 5:
+        η_str = ($η)[0..4]
+      else:
+        η_str = $η
+
+    rectangle "pip":
+      box sliderη_knob, 0, 10, 10
+      fill "#72bdd0"
+      cornerRadius 5
+    rectangle "fill":
+      box 0, 3, sliderη_knob, 4
+      fill "#70bdcf"
+      cornerRadius 2
+      strokeWeight 1
+    rectangle "bg":
+      box 0, 3, SLIDER_LENGTH, 4
+      fill "#c2e3eb"
+      cornerRadius 2
+      strokeWeight 1
+
+  group "slider":
+    box 240, 130, SLIDER_LENGTH, 10
+    onClick:
+      sliderN = true
+
+    if sliderN:
+      sliderN_knob = int(mouse.pos.x - current.screenBox.x)
+      sliderN_knob = clamp(sliderN_knob, 1, SLIDER_LENGTH)
+      sliderN = buttonDown[MOUSE_LEFT]
+
+      N = (ITERATION_MIN + (ITERATION_MAX-ITERATION_MIN)*(sliderN_knob-1)/(SLIDER_LENGTH-1)).round.toInt
+      N_str = $N
+
+    rectangle "pip":
+      box sliderN_knob, 0, 10, 10
+      fill "#72bdd0"
+      cornerRadius 5
+    rectangle "fill":
+      box 0, 3, sliderN_knob, 4
+      fill "#70bdcf"
+      cornerRadius 2
+      strokeWeight 1
+    rectangle "bg":
+      box 0, 3, SLIDER_LENGTH, 4
+      fill "#c2e3eb"
+      cornerRadius 2
+      strokeWeight 1
+
+  group "input":
+    box 440, 75, 50, 24
+    text "text":
+      box 4, 2, 42, 20
+      fill "#46607e"
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      binding η_str
+      try:
+        if η_str != "":
+          let tmp = η_str.parseFloat
+          if LEARNINGRATE_MIN <= tmp and tmp <= LEARNINGRATE_MAX:
+            η = tmp
+            sliderη_knob = ((η-LEARNINGRATE_MIN)/(LEARNINGRATE_MAX-LEARNINGRATE_MIN)*(SLIDER_LENGTH-1)).toInt+1
+          else:
+            var e: ref ValueError
+            new(e)
+            raise(e) 
+        
+      except ValueError:
+        if len($η) >= 5:
+          η_str = ($η)[0..4]
+        else:
+          η_str = $η 
+
+    text "textPlaceholder":
+      box 4, 2, 42, 20
+      fill "#46607e", 0.5
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      if η_str == "":
+        if len($η) >= 5:
+          characters ($η)[0..4]
+        else:
+          characters $η
+
+    rectangle "bg":
+      box 0, 0, 50, 24
+      stroke "#72bdd0"
+      cornerRadius 5
+      strokeWeight 1
+
+  group "input":
+    box 440, 125, 50, 24
+    text "text":
+      box 4, 2, 42, 20
+      fill "#46607e"
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      binding N_str
+
+      try:
+        if N_str != "":
+          let tmp = N_str.parseInt
+          if ITERATION_MIN <= tmp and tmp <= ITERATION_MAX:
+            N = tmp
+            sliderN_knob = ((N-ITERATION_MIN)/(ITERATION_MAX-ITERATION_MIN)*(SLIDER_LENGTH-1)).toInt+1
+          else:
+            var e: ref ValueError
+            new(e)
+            raise(e)         
+      except ValueError:
+        N_str = $N
+
+    text "textPlaceholder":
+      box 4, 2, 42, 20
+      fill "#46607e", 0.5
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      if N_str == "":
+        characters $N
+
+    rectangle "bg":
+      box 0, 0, 50, 24
+      stroke "#72bdd0"
+      cornerRadius 5
+      strokeWeight 1
+
+    text "textPlaceholder":
+      box 4, 2, 42, 20
+      fill "#46607e", 0.5
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      if N_str == "":
+        characters $N
+
+    rectangle "bg":
+      box 0, 0, 50, 24
+      stroke "#72bdd0"
+      cornerRadius 5
+      strokeWeight 1
+
+  group "label":
+    box 150, 70, 60, 30
+    text "Text field:":
+      box 0, 0, 360, 30
+      fill "#46607e"
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      characters "learning rate"
+
+  group "label":
+    box 150, 120, 60, 30
+    text "Text field:":
+      box 0, 0, 360, 30
+      fill "#46607e"
+      strokeWeight 1
+      font "IBM Plex Sans", 15, 200, 0, hLeft, vCenter
+      characters "iteration"
+
+  group "label":
+    box 150, 20, 360, 30
+    text "Text field:":
+      box 0, 0, 360, 30
+      fill "#46607e"
+      strokeWeight 1
+      font "IBM Plex Sans", 20, 200, 0, hLeft, vCenter
+      characters "reservoir run & learn control panel"
 
 
 
@@ -1183,7 +1386,7 @@ proc drawMain() =
       verticalPadding 0
       itemSpacing 0
 
-      for tabName in ["Readme", "ReservoirSystem", "ReferenceSystem", "InputForce"]:
+      for tabName in ["Readme", "ReservoirR&L", "ReservoirSettings", "ReferenceSettings", "InputSettings"]:
         group "tab":
           box 0, 0, 130, 30
           layoutAlign laCenter
@@ -1208,12 +1411,14 @@ proc drawMain() =
       fill "#e5f7fe"
 
     case selectedTab:
-      of "InputForce":
-        inputForceControls()
-      of "ReferenceSystem":
-        referenceSystemControls()
-      of "ReservoirSystem":
-        reservoirSystemControls()
+      of "InputSettings":
+        inputSettings()
+      of "ReferenceSettings":
+        referenceSettings()
+      of "ReservoirSettings":
+        reservoirSettings()
+      of "ReservoirR&L":
+        reservoirRunAndLearn()
       of "Readme":
         basicText()
 

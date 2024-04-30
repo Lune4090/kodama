@@ -5,15 +5,6 @@ import unchained, chroma, arraymancer
 # original
 import plot, parameters, dynamics, reservoir
 
-proc generateInputForce*(F: float, ω: float; Forcetype = "sin", time = 30.0, Δt = 1.0): tuple =
-
-  if Forcetype == "sin":
-    let
-      sim = newSimParams(time, Δt)
-      force_sin = newSinForces(ω, F, sim.t_seq.map(x => x.toFloat))
-
-    return ("input force generated", sim, force_sin)
-
 proc simulateReferenceSystem*(M: float, K: float, D: float, sim: SimParams, f: SinForces): tuple =
   let
     sys_test = newMassSpringDumper(M, K, D)
@@ -69,72 +60,6 @@ proc simulateReferenceSystem*(M: float, K: float, D: float, sim: SimParams, f: S
   )
 
   return ("Simulation Ended", outputX, outputV, outputA)
-
-# ここ、リザバーシステムは力学系と違って学習が必要だから、リザバー生成と振る舞いのシミュレーション、及び教師データに基づく学習は全て分離すべきでは?
-proc simulateReservoirSystem*(I: int, R: int, O: int, sp: float, seednum: int, sim: SimParams, f: SinForces ): tuple =
-
-  var
-    sys_test = newReservoir(I, R, O, sp, seednum)
-
-    # input & output definition
-    outputV = newSeqOfCap[Meter•Second⁻¹](sim.datanum)
-    outputA = newSeqOfCap[Meter•Second⁻²](sim.datanum)
-
-  # filling first few args
-  outputV.add(0.m•s⁻¹)
-  outputA.add(0.m•s⁻²)
-  outputA.add(0.m•s⁻²)
-
-  ################
-  # Simulation
-  ################
-
-  var
-    # calculate system reaction
-    fs = f.Fseq.map(x=>x.toFloat)
-    outputX = newSeq[Meter](sim.datanum)
-
-  for i, x in pairs(fs):
-    var inx = newSeq[float](I).map(x => fs[i]).toTensor.reshape(I)
-    outputX[i] = sys_test.responcesToInput(inx).toSeq1D[0].m
-
-  # variables to calculate system responce
-  var
-    x1_out = 0.0.m
-    x2_out = 0.0.m
-
-  for i, x in outputX.pairs:
-    if i >= 1:
-      outputV.add(getVfromX(sim.Δt, x, x1_out))
-    if i >= 2:
-      outputA.add(getAfromX(sim.Δt, x, x1_out, x2_out))
-    x2_out = x1_out
-    x1_out = x
-
-  ################
-  # Plotting
-  ################
-
-  var
-    # figure specific setting
-    color_inF  = @[Color(r: 0.6, g: 0.6, b: 0.6, a: 0.8)]
-    color_outX = @[Color(r: 0.6, g: 0.2, b: 0.2, a: 0.8)]
-    color_outV = @[Color(r: 0.2, g: 0.6, b: 0.2, a: 0.8)]
-    color_outA = @[Color(r: 0.2, g: 0.2, b: 0.6, a: 0.8)]
-
-  plot_inF_outXVA(
-    sim.t_seq,
-    f.Fseq,
-    outputX,
-    outputV,
-    outputA,
-    color_inF,
-    color_outX,
-    color_outV,
-    color_outA,
-  )
-
-  return ("Simulation Ended", outputX, outputV, outputA, sys_test)
 
 proc simulateReservoirSystem*(sys: var ReservoirSystem, I: int, R: int, O: int, sp: float, seednum: int, sim: SimParams, f: SinForces ): tuple =
 
