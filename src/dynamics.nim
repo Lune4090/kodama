@@ -19,11 +19,11 @@ type
   SinForces* = object
     ω*: Hertz
     amp*: Newton
-    fs*: seq[Newton]
+    Fseq*: seq[Newton]
 
   ConstForces* = object
     amp*: Newton
-    fs*: seq[Newton]
+    Fseq*: seq[Newton]
 
   MassSpringDumper* = object
     M*: KiloGram
@@ -34,13 +34,13 @@ proc newSinForces*(ω: float, amp: float, t_seq: seq[float]): SinForces =
   return SinForces(
     ω: ω.s⁻¹, 
     amp: amp.N, 
-    fs: t_seq.map(t => sin(ω.s⁻¹*t.s)*amp.N)
+    Fseq: t_seq.map(t => sin(ω.s⁻¹*t.s)*amp.N)
   )
 
 proc newConstForces*(amp: float, t_seq: seq[float]): SinForces =
   return SinForces(
     amp: amp.N, 
-    fs: t_seq.map(t => t*amp.N)
+    Fseq: t_seq.map(t => t*amp.N)
   )
 
 proc newMassSpringDumper*(m: float, k: float, d: float): MassSpringDumper =
