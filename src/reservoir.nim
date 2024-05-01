@@ -1,5 +1,5 @@
 # std
-import random
+import random, sugar
 # outer
 import arraymancer
 
@@ -45,7 +45,7 @@ proc responcesToInput*(sys: var ReservoirSystem, input: Tensor[float]): Tensor[f
   # reservoir update rule
   sys.reservoir = (sys.readin * input + sys.reservoirUpdate * sys.reservoir)
   # read answer only from reservoir (no highway)
-  return sys.readout * sys.reservoir
+  return (sys.readout * sys.reservoir).map(x => tanh(x))
 
 proc learnFromTeacher*(sys: var ReservoirSystem, pred: Tensor[float], teacherdata: Tensor[float], η: range[0.0..1.0]) =
   for row in 0..<sys.readout.shape[0]:
