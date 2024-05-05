@@ -5,7 +5,7 @@ import unchained, chroma, arraymancer
 # original
 import plot, parameters, dynamics, reservoir
 
-proc simulateReferenceSystem*(M: float, K: float, D: float, sim: SimParams, f: SinForces): tuple =
+proc simulateReferenceSystem*(M: float, K: float, D: float, sim: SimParams, f: SinForces; isPlotting = true): tuple =
   let
     sys_test = newMassSpringDumper(M, K, D)
 
@@ -35,33 +35,30 @@ proc simulateReferenceSystem*(M: float, K: float, D: float, sim: SimParams, f: S
     x2_out = x1_out
     x1_out = x
 
+  if isPlotting:
 
-  ################
-  # Plotting
-  ################
+    var
+      # figure specific setting
+      color_inF  = @[Color(r: 0.6, g: 0.6, b: 0.6, a: 0.8)]
+      color_outX = @[Color(r: 0.6, g: 0.2, b: 0.2, a: 0.8)]
+      color_outV = @[Color(r: 0.2, g: 0.6, b: 0.2, a: 0.8)]
+      color_outA = @[Color(r: 0.2, g: 0.2, b: 0.6, a: 0.8)]
 
-  var
-    # figure specific setting
-    color_inF  = @[Color(r: 0.6, g: 0.6, b: 0.6, a: 0.8)]
-    color_outX = @[Color(r: 0.6, g: 0.2, b: 0.2, a: 0.8)]
-    color_outV = @[Color(r: 0.2, g: 0.6, b: 0.2, a: 0.8)]
-    color_outA = @[Color(r: 0.2, g: 0.2, b: 0.6, a: 0.8)]
-
-  plot_inF_outXVA(
-    sim.t_seq,
-    f.Fseq,
-    outputX,
-    outputV,
-    outputA,
-    color_inF,
-    color_outX,
-    color_outV,
-    color_outA,
-  )
+    plot_inF_outXVA(
+      sim.t_seq,
+      f.Fseq,
+      outputX,
+      outputV,
+      outputA,
+      color_inF,
+      color_outX,
+      color_outV,
+      color_outA,
+    )
 
   return ("Simulation Ended", outputX, outputV, outputA)
 
-proc simulateReservoirSystem*(sys: var ReservoirSystem, I: int, R: int, O: int, sp: float, seednum: int, sim: SimParams, f: SinForces ): tuple =
+proc simulateReservoirSystem*(sys: var ReservoirSystem, I: int, R: int, O: int, sp: float, seednum: int, sim: SimParams, f: SinForces ; isPlotting = true): tuple =
 
   var
     # input & output definition
@@ -99,42 +96,45 @@ proc simulateReservoirSystem*(sys: var ReservoirSystem, I: int, R: int, O: int, 
     x2_out = x1_out
     x1_out = x
 
-  ################
-  # Plotting
-  ################
 
-  var
-    # figure specific setting
-    color_inF  = @[Color(r: 0.6, g: 0.6, b: 0.6, a: 0.8)]
-    color_outX = @[Color(r: 0.6, g: 0.2, b: 0.2, a: 0.8)]
-    color_outV = @[Color(r: 0.2, g: 0.6, b: 0.2, a: 0.8)]
-    color_outA = @[Color(r: 0.2, g: 0.2, b: 0.6, a: 0.8)]
+  if isPlotting:
+    ################
+    # Plotting
+    ################
 
-  plot_inF_outXVA(
-    sim.t_seq,
-    f.Fseq,
-    outputX,
-    outputV,
-    outputA,
-    color_inF,
-    color_outX,
-    color_outV,
-    color_outA,
-  )
+    var
+      # figure specific setting
+      color_inF  = @[Color(r: 0.6, g: 0.6, b: 0.6, a: 0.8)]
+      color_outX = @[Color(r: 0.6, g: 0.2, b: 0.2, a: 0.8)]
+      color_outV = @[Color(r: 0.2, g: 0.6, b: 0.2, a: 0.8)]
+      color_outA = @[Color(r: 0.2, g: 0.2, b: 0.6, a: 0.8)]
+
+    plot_inF_outXVA(
+      sim.t_seq,
+      f.Fseq,
+      outputX,
+      outputV,
+      outputA,
+      color_inF,
+      color_outX,
+      color_outV,
+      color_outA,
+    )
 
   return ("Simulation Ended", outputX, outputV, outputA, sys)
 
-proc simulateReservoirLearning*(sys: var ReservoirSystem, teacherdata: Tensor[float], inputdata: Tensor[float]; iter: int = 100, η: range[0.0..1.0] = 0.01): tuple =
+proc simulateReservoirLearning*(sys: var ReservoirSystem, teacherdata: seq[seq[float]], inputdata: seq[seq[float]]; iter: int = 100, η: range[0.0..1.0] = 0.01): tuple =
   var rseSeq = newseq[float]()
   for i in 0..<iter:
     var rse = 0.0
-    for i, data in pairs(inputdata.toSeq1D):
-      var inx = newSeq[float](sys.readin.shape[1]).map(x => data).toTensor
-      var pred = sys.responcesToInput(inx)
+    for id in 0..<len(teacherdata):
+      for i, data in pairs(inputdata[id]):
+        var inx = newSeq[float](sys.readin.shape[1]).map(x => data).toTensor
+        var pred = sys.responcesToInput(inx)
 
-      sys.learnFromTeacher(pred, @[teacherdata[i]].toTensor, η)
-      for i in 0..<pred.shape[0]:
-        rse += (pred[i] - (@[teacherdata[i]].toTensor)[i])^2
+        sys.learnFromTeacher(pred, @[teacherdata[id][i]].toTensor, η)
+        for i in 0..<pred.shape[0]:
+          rse += (pred[i] - (@[teacherdata[id][i]].toTensor)[i])^2
     echo rse
     rseSeq.add(rse)
 

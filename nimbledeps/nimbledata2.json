@@ -120,6 +120,11 @@
           },
           {
             "path": "/home/lune/kodama"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -136,6 +141,11 @@
             "name": "pixie",
             "version": "5.0.6",
             "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -155,6 +165,11 @@
           },
           {
             "path": "/home/lune/kodama"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -171,6 +186,11 @@
             "name": "wasmrt",
             "version": "0.1.0",
             "checksum": "7bd4bd26a0673e8a2cdd7e31ba75a3aa0babba8e"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -182,6 +202,11 @@
             "name": "pixie",
             "version": "5.0.6",
             "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -193,6 +218,11 @@
             "name": "pixie",
             "version": "5.0.6",
             "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -204,6 +234,11 @@
             "name": "pixie",
             "version": "5.0.6",
             "checksum": "fd4c5d12bba41aac760fc86c2de820e1a367dbfd"
+          },
+          {
+            "name": "pixie",
+            "version": "5.0.7",
+            "checksum": "64999611cd1093e28b62ed80e695783839441538"
           }
         ]
       }
@@ -211,6 +246,15 @@
     "pixie": {
       "5.0.6": {
         "fd4c5d12bba41aac760fc86c2de820e1a367dbfd": [
+          {
+            "name": "typography",
+            "version": "0.7.14",
+            "checksum": "d6f6e69141b1f62fef42ea2f90eefb894399d4f8"
+          }
+        ]
+      },
+      "5.0.7": {
+        "64999611cd1093e28b62ed80e695783839441538": [
           {
             "name": "typography",
             "version": "0.7.14",
